@@ -29,12 +29,14 @@ jobs:
           chmod 600 ~/.kaggle/kaggle.json
 
       - name: Run Python Script
-        run: python fetch_crypto.py
+        run: python script.py  # Make sure your script is named correctly
 
       - name: Commit & Push Data
         run: |
           git config --global user.email "kushvinth.m@gmail.com"
           git config --global user.name "GitHub Actions"
           git add .
-          git commit -m "Updated dataset"
-          git push || echo "No changes to commit"
+          git commit -m "Updated dataset" || echo "No changes to commit"
+          git push "https://${{ secrets.GITHUB_TOKEN }}@github.com/Kushvinth-Madhavan/crypto-data-daily.git" || echo "No changes to commit"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
