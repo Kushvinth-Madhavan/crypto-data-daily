@@ -20,11 +20,13 @@ def fetch_crypto_data():
         print("Error fetching data:", response.status_code)
         return None
 
-def save_to_csv(data, filename="crypto_data.csv"):
+def save_to_excel(data, directory="data", filename="crypto_data.xlsx"):
+    os.makedirs(directory, exist_ok=True)  # Create directory if it doesn't exist
+    file_path = os.path.join(directory, filename)  # Construct full file path
     df = pd.DataFrame(data)
     df = df[['id', 'symbol', 'name', 'current_price', 'market_cap', 'total_volume', 'price_change_percentage_24h']]
-    df.to_csv(filename, index=False)
-    print(f"Data saved to {filename}")
+    df.to_excel(file_path, index=False)  # Save as Excel file
+    print(f"Data saved to {file_path}")
 
 def upload_to_kaggle():
     dataset_metadata = {
@@ -41,6 +43,6 @@ def upload_to_kaggle():
 if __name__ == "__main__":
     data = fetch_crypto_data()
     if data:
-        save_to_csv(data)
+        save_to_excel(data)  # Call the updated function
         upload_to_kaggle()
 
