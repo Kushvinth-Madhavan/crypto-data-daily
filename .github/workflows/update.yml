@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install pandas requests kaggle
+          pip install pandas requests kaggle openpyxl  # Added openpyxl here
 
       - name: Set Up Kaggle API
         run: |
