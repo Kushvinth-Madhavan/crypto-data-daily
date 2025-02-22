@@ -14,8 +14,11 @@ PARAMS = {
 
 def fetch_crypto_data():
     response = requests.get(API_URL, params=PARAMS)
+    print("API Response Status Code:", response.status_code)  # Debugging line
     if response.status_code == 200:
-        return response.json()
+        data = response.json()
+        print("Fetched Data:", data)  # Debugging line
+        return data
     else:
         print("Error fetching data:", response.status_code)
         return None
@@ -45,4 +48,3 @@ if __name__ == "__main__":
     if data:
         save_to_excel(data)  # Call the updated function
         upload_to_kaggle()
-
